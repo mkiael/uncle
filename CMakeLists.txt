@@ -12,12 +12,14 @@ find_package(Curses REQUIRED)
 
 include_directories(src ${CURSES_INCLUDE_DIR})
 
-set(SOURCE_FILES
-	src/main.cc
-        src/uncle/buffer.cc
-        src/uncle/cursor.cc
+add_executable(${PROJECT_NAME}
+    src/main.cc
+    src/uncle/buffer.cc
+    src/uncle/buffer.h
+    src/uncle/commands.h
+    src/uncle/cursor.cc
+    src/uncle/cursor.h
+    src/uncle/input_handler.cc
 )
-
-add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME} ${CURSES_LIBRARIES})

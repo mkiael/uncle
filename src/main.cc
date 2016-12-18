@@ -8,6 +8,7 @@
 // uncle
 #include "uncle/buffer.h"
 #include "uncle/commands.h"
+#include "uncle/input_handler.h"
 
 using namespace uncle;
 
@@ -29,41 +30,27 @@ int main(int argc, char** argv)
 {
    initscr();
    noecho();
-   cbreak();
+   raw();
    keypad(stdscr, TRUE);
-   
-   int ch;
 
+   InputHandler input_handler;
    Buffer buffer;
 
    while (1)
    {
-      ch = getch();
+      auto cmd = input_handler.read_input();
 
-      switch (ch)
+      if (cmd == Command::Quit)
       {
-      case 10: // Enter
-         buffer.handle_command(Command::Enter);
          break;
-      case 8: // Backsapce
-      case 127: // Delete
-         buffer.handle_command(Command::Delete);
-         break;
-       case KEY_UP:
-         buffer.handle_command(Command::CursorUp);
-         break;
-      case KEY_DOWN:
-         buffer.handle_command(Command::CursorDown);
-         break;
-      case KEY_LEFT:
-         buffer.handle_command(Command::CursorLeft);
-         break;
-      case KEY_RIGHT:
-         buffer.handle_command(Command::CursorRight);
-         break;
-     default:
-         buffer.add_character(static_cast<char>(ch));
-         break;
+      }
+      else if (cmd == Command::Input)
+      {
+         buffer.add_character(input_handler.get_character());
+      }
+      else
+      {
+         buffer.handle_command(cmd);
       }
 
       clear();
