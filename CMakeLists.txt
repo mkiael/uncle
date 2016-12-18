@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-set(PROJECT_NAME unclde)
+set(PROJECT_NAME uncle)
 
 project(${PROJECT_NAME})
 
@@ -10,10 +10,12 @@ set(CURSES_NEED_NCURSES TRUE)
 
 find_package(Curses REQUIRED)
 
-include_directories(${CURSES_INCLUDE_DIR})
+include_directories(src ${CURSES_INCLUDE_DIR})
 
 set(SOURCE_FILES
-	src/main.cpp
+	src/main.cc
+        src/uncle/buffer.cc
+        src/uncle/cursor.cc
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
