@@ -48,7 +48,7 @@ void Buffer::handle_command(Command cmd)
          m_cursor.reset_column();
       }
       break;
-   case Command::Delete:
+   case Command::DeleteCharInFrontOf:
       if (!is_cursor_at_first_column())
       {
          m_cursor.decrement_column();
@@ -61,6 +61,12 @@ void Buffer::handle_command(Command cmd)
       {
          m_cursor.decrement_row();
          m_cursor.set_column(line().size());
+      }
+      break;
+   case Command::DeleteCharAfter:
+      if (m_cursor.column() < line().size())
+      {
+         line().erase(begin(line()) + m_cursor.column());
       }
       break;
    case Command::CursorUp:

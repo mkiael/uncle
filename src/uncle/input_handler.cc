@@ -33,12 +33,16 @@ Command InputHandler::read_input()
 
    switch (m_input)
    {
-   case 8: // Backsapce
-   case 127: // Delete
-      return Command::Delete;
+   case 8:
+   case 127:
+   case KEY_BACKSPACE:
+      return Command::DeleteCharInFrontOf;
+   case KEY_DC:
+      return Command::DeleteCharAfter;
    case 10: // Enter
+   case KEY_ENTER:
       return Command::Enter;
-   case 17:
+   case 17: // ctrl+q
       return Command::Quit;
     case KEY_UP:
       return Command::CursorUp;

@@ -57,7 +57,6 @@ int main(int argc, char** argv)
       print_buffer(buffer);
    }
 
-   getch();
    endwin();
 
    return 0;
